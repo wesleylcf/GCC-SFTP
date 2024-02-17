@@ -1,6 +1,6 @@
 "use client";
 
-import { MathApi } from "@/api";
+import { CalculatorApi } from "@/api";
 import { Button, Form, InputNumber } from "antd";
 import { useState } from "react";
 
@@ -19,7 +19,7 @@ export default function App() {
     const { operand1: _operand1, operand2: _operand2 } = form.getFieldsValue();
     const operand1 = _operand1 ?? 0;
     const operand2 = _operand2 ?? 0;
-    const result = await MathApi.add(operand1, operand2);
+    const result = await CalculatorApi.add(operand1, operand2);
     setResult(result);
   };
 
@@ -27,7 +27,7 @@ export default function App() {
     const { operand1: _operand1, operand2: _operand2 } = form.getFieldsValue();
     const operand1 = _operand1 ?? 0;
     const operand2 = _operand2 ?? 0;
-    const result = await MathApi.subtract(operand1, operand2);
+    const result = await CalculatorApi.subtract(operand1, operand2);
     setResult(result);
   };
 

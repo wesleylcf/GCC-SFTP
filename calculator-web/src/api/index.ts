@@ -1,2 +1,2 @@
-export * from "./math.service";
-export * from "./math.types";
+export * from "./calculator.service";
+export * from "./calculator.types";
