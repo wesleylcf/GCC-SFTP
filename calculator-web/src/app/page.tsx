@@ -1,7 +1,7 @@
 "use client";
 
 import { ApiService } from "@/api";
-import { Button, Form, InputNumber } from "antd";
+import { Button, Form, InputNumber, Spin } from "antd";
 import { useState } from "react";
 
 interface FormState {
@@ -14,21 +14,26 @@ const defaultFormState: FormState = { operand1: 0, operand2: 0 };
 export default function App() {
   const [result, setResult] = useState(0);
   const [form] = Form.useForm();
+  const [isLoading, setIsLoading] = useState(false);
 
   const onAdd = async () => {
+    setIsLoading(true);
     const { operand1: _operand1, operand2: _operand2 } = form.getFieldsValue();
     const operand1 = _operand1 ?? 0;
     const operand2 = _operand2 ?? 0;
     const result = await ApiService.calculator.add(operand1, operand2);
     setResult(result);
+    setTimeout(() => setIsLoading(false), 200);
   };
 
   const onSubtract = async () => {
+    setIsLoading(true);
     const { operand1: _operand1, operand2: _operand2 } = form.getFieldsValue();
     const operand1 = _operand1 ?? 0;
     const operand2 = _operand2 ?? 0;
     const result = await ApiService.calculator.subtract(operand1, operand2);
     setResult(result);
+    setTimeout(() => setIsLoading(false), 200);
   };
 
   return (
@@ -46,17 +51,17 @@ export default function App() {
         </Form.Item>
         <div className="flex flex-row space-x-4">
           <Form.Item>
-            <Button htmlType="submit" onClick={onAdd}>
+            <Button htmlType="submit" onClick={onAdd} disabled={isLoading}>
               Add
             </Button>
           </Form.Item>
           <Form.Item>
-            <Button htmlType="submit" onClick={onSubtract}>
+            <Button htmlType="submit" onClick={onSubtract} disabled={isLoading}>
               Subtract
             </Button>
           </Form.Item>
         </div>
-        <p>Result: {result}</p>
+        <p>Result: {isLoading ? <Spin size="small" /> : result}</p>
       </Form>
     </main>
   );
