@@ -1,10 +1,11 @@
 import axios from "axios";
 import { BaseCalculatorResponse } from ".";
+import { BaseApiService } from "./base.service";
 
-export class CalculatorApi {
-  static async add(operand1: number, operand2: number) {
+export class CalculatorApiService extends BaseApiService {
+  async add(operand1: number, operand2: number) {
     const response = await axios.post<BaseCalculatorResponse>(
-      `${process.env.NEXT_PUBLIC_SERVER_BASE_URL}/math/add`,
+      `${this.apiUrl}/math/add`,
       {
         operand1,
         operand2,
@@ -13,9 +14,9 @@ export class CalculatorApi {
     return response.data.result;
   }
 
-  static async subtract(operand1: number, operand2: number) {
+  async subtract(operand1: number, operand2: number) {
     const response = await axios.post<BaseCalculatorResponse>(
-      `${process.env.NEXT_PUBLIC_SERVER_BASE_URL}/math/subtract`,
+      `${this.apiUrl}/math/subtract`,
       {
         operand1,
         operand2,
