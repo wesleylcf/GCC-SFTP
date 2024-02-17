@@ -10,6 +10,7 @@ interface FormState {
 }
 
 const defaultFormState: FormState = { operand1: 0, operand2: 0 };
+type Operat = keyof typeof ApiService.calculator;
 
 export default function App() {
   const [result, setResult] = useState(0);
@@ -17,21 +18,23 @@ export default function App() {
   const [isLoading, setIsLoading] = useState(false);
 
   const onAdd = async () => {
-    setIsLoading(true);
-    const { operand1: _operand1, operand2: _operand2 } = form.getFieldsValue();
-    const operand1 = _operand1 ?? 0;
-    const operand2 = _operand2 ?? 0;
-    const result = await ApiService.calculator.add(operand1, operand2);
-    setResult(result);
-    setTimeout(() => setIsLoading(false), 200);
+    await executeCalculation((op1, op2) => ApiService.calculator.add(op1, op2));
   };
 
   const onSubtract = async () => {
+    await executeCalculation((op1, op2) =>
+      ApiService.calculator.subtract(op1, op2)
+    );
+  };
+
+  const executeCalculation = async (
+    calculation: (a: number, b: number) => Promise<any>
+  ) => {
     setIsLoading(true);
     const { operand1: _operand1, operand2: _operand2 } = form.getFieldsValue();
     const operand1 = _operand1 ?? 0;
     const operand2 = _operand2 ?? 0;
-    const result = await ApiService.calculator.subtract(operand1, operand2);
+    const result = await calculation(operand1, operand2);
     setResult(result);
     setTimeout(() => setIsLoading(false), 200);
   };
