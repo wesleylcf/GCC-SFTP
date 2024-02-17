@@ -1,9 +1,9 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { HttpStatus, INestApplication } from '@nestjs/common';
 import * as request from 'supertest';
-import { MathModule } from '../src/math/math.module';
+import { MathModule } from '../src/calculator/calculator.module';
 
-describe('MathController (e2e)', () => {
+describe('CalculatorController (e2e)', () => {
   let app: INestApplication;
 
   beforeEach(async () => {

@@ -3,25 +3,42 @@ import { BaseCalculatorResponse } from ".";
 import { BaseApiService } from "./base.service";
 
 export class CalculatorApiService extends BaseApiService {
+  constructor(apiUrl: string) {
+    super(apiUrl + "/calculate");
+  }
   async add(operand1: number, operand2: number) {
-    const response = await axios.post<BaseCalculatorResponse>(
-      `${this.apiUrl}/math/add`,
-      {
-        operand1,
-        operand2,
-      }
-    );
-    return response.data.result;
+    try {
+      const data = await this.post<BaseCalculatorResponse>(
+        "add",
+        { operand1, operand2 },
+        {
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+          },
+        }
+      );
+      return data.result;
+    } catch (e) {
+      // Application/business specific error processing if necessary
+      throw e;
+    }
   }
 
   async subtract(operand1: number, operand2: number) {
-    const response = await axios.post<BaseCalculatorResponse>(
-      `${this.apiUrl}/math/subtract`,
-      {
-        operand1,
-        operand2,
-      }
-    );
-    return response.data.result;
+    try {
+      const data = await this.post<BaseCalculatorResponse>(
+        "subtract",
+        { operand1, operand2 },
+        {
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+          },
+        }
+      );
+      return data.result;
+    } catch (e) {
+      // Application/business specific error processing if necessary
+      throw e;
+    }
   }
 }

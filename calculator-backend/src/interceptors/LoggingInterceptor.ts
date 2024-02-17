@@ -12,18 +12,19 @@ export class LoggingInterceptor implements NestInterceptor {
   constructor() {}
   intercept(context: ExecutionContext, next: CallHandler): Observable<any> {
     const req = context.switchToHttp().getRequest();
+    const requestReceivedDateTime = new Date();
     console.log(
-      `(Request) ${req.method} ${req.path}\n\tbody: ${JSON.stringify(req.body)}\n\tuser: ${JSON.stringify(
+      `(Request)\t${req.method}\t${req.path}\t${requestReceivedDateTime.toISOString()}\n\tbody: ${JSON.stringify(req.body)}\n\tuser: ${JSON.stringify(
         req.user,
       )},\n\tsession: ${JSON.stringify(req.session)}`,
     );
-    const now = Date.now();
 
     return next.handle().pipe(
       tap((data) => {
         const { statusCode } = context.switchToHttp().getResponse();
+        const replySentDateTime = new Date();
         console.log(
-          `(Response: ${Date.now() - now}ms) ${req.method} ${req.path}\n\t${JSON.stringify({ statusCode, error: data?.error || '', data })}`,
+          `(Response: ${Number(replySentDateTime) - Number(requestReceivedDateTime)}ms)\t${req.method}\t${req.path}\t${replySentDateTime.toISOString()}\n\t${JSON.stringify({ statusCode, error: data?.error || '', data })}`,
         );
       }),
     );

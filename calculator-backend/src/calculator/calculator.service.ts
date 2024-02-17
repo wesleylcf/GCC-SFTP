@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 
 @Injectable()
-export class MathService {
+export class CalculatorService {
   add(...operands: number[]) {
     return operands.reduce((result, operand) => result + operand, 0);
   }
