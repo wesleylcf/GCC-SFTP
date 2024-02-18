@@ -7,4 +7,4 @@ import { CalculatorService } from './calculator.service';
   controllers: [CalculatorController],
   providers: [CalculatorService],
 })
-export class MathModule {}
+export class CalculatorModule {}

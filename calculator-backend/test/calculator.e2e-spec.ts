@@ -1,14 +1,14 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { HttpStatus, INestApplication } from '@nestjs/common';
 import * as request from 'supertest';
-import { MathModule } from '../src/calculator/calculator.module';
+import { CalculatorModule } from '../src/calculator/calculator.module';
 
 describe('CalculatorController (e2e)', () => {
   let app: INestApplication;
 
   beforeEach(async () => {
     const moduleFixture: TestingModule = await Test.createTestingModule({
-      imports: [MathModule],
+      imports: [CalculatorModule],
     }).compile();
 
     app = moduleFixture.createNestApplication();
@@ -19,9 +19,9 @@ describe('CalculatorController (e2e)', () => {
     operand2: 1,
   };
 
-  it('(POST) /math/add', () => {
+  it('(POST) /calculate/add', () => {
     return request(app.getHttpServer())
-      .post('/math/add')
+      .post('/calculate/add')
       .send(mockRequestBody)
       .then((res) => {
         expect(res.statusCode === HttpStatus.OK);
@@ -29,9 +29,9 @@ describe('CalculatorController (e2e)', () => {
       });
   });
 
-  it('(POST) /math/subtract', () => {
+  it('(POST) /calculate/subtract', () => {
     return request(app.getHttpServer())
-      .post('/math/subtract')
+      .post('/calculate/subtract')
       .send(mockRequestBody)
       .then((res) => {
         expect(res.statusCode === HttpStatus.OK);

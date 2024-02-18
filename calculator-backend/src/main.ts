@@ -1,10 +1,10 @@
 import { NestFactory } from '@nestjs/core';
-import { MathModule } from './calculator/calculator.module';
+import { CalculatorModule } from './calculator/calculator.module';
 import { LoggingInterceptor } from './interceptors';
 import { ValidationPipe } from '@nestjs/common';
 
 async function bootstrap() {
-  const app = await NestFactory.create(MathModule);
+  const app = await NestFactory.create(CalculatorModule);
   app.enableCors();
   app.useGlobalInterceptors(new LoggingInterceptor());
   app.useGlobalPipes(
