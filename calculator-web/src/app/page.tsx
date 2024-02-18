@@ -18,12 +18,14 @@ export default function App() {
   const [isLoading, setIsLoading] = useState(false);
 
   const onAdd = async () => {
-    await executeCalculation((op1, op2) => ApiService.calculator.add(op1, op2));
+    await executeCalculation((op1, op2) =>
+      ApiService.calculator.addTwo(op1, op2)
+    );
   };
 
   const onSubtract = async () => {
     await executeCalculation((op1, op2) =>
-      ApiService.calculator.subtract(op1, op2)
+      ApiService.calculator.subtractTwo(op1, op2)
     );
   };
 

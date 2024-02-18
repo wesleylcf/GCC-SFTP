@@ -1,4 +1,3 @@
-import axios from "axios";
 import { BaseCalculatorResponse } from ".";
 import { BaseApiService } from "./base.service";
 
@@ -6,10 +5,16 @@ export class CalculatorApiService extends BaseApiService {
   constructor(apiUrl: string) {
     super(apiUrl + "/calculate");
   }
-  async add(operand1: number, operand2: number) {
+
+  /**
+   * Adds two numeric operands
+   * @param operand1 first number
+   * @param operand2 second number
+   */
+  async addTwo(operand1: number, operand2: number) {
     try {
       const data = await this.post<BaseCalculatorResponse>(
-        "add",
+        "addTwo",
         { operand1, operand2 },
         {
           headers: {
@@ -19,15 +24,20 @@ export class CalculatorApiService extends BaseApiService {
       );
       return data.result;
     } catch (e) {
-      // Application/business specific error processing if necessary
+      // Application/business specific error processing
       throw e;
     }
   }
 
-  async subtract(operand1: number, operand2: number) {
+  /**
+   * Subtracts operand2 from operand1. Order of operands matters.
+   * @param operand1 first number
+   * @param operand2 second number
+   */
+  async subtractTwo(operand1: number, operand2: number) {
     try {
       const data = await this.post<BaseCalculatorResponse>(
-        "subtract",
+        "subtractTwo",
         { operand1, operand2 },
         {
           headers: {

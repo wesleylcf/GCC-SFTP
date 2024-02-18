@@ -6,6 +6,12 @@ export class BaseApiService {
     this.apiUrl = apiUrl;
   }
 
+  /**
+   * Takes in the same parameters as axios.post
+   * @param url Endpoint to be appended to the apiUrl of the current service. Should start without '/'
+   * @param data Forwarded to axios.post
+   * @param config Forward to axios.post
+   */
   async post<ExpectedResponse>(...params: Parameters<typeof axios.post>) {
     const [endpoint, _data, config] = params;
     try {
@@ -16,7 +22,7 @@ export class BaseApiService {
       );
       return response.data as ExpectedResponse;
     } catch (e) {
-      // Backend specific error processing to make it presentable to users if necessary.
+      // Backend specific error processing
       throw e;
     }
   }

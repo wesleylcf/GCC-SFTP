@@ -19,9 +19,9 @@ describe('CalculatorController (e2e)', () => {
     operand2: 1,
   };
 
-  it('(POST) /calculate/add', () => {
+  it('(POST) /calculate/addTwo', () => {
     return request(app.getHttpServer())
-      .post('/calculate/add')
+      .post('/calculate/addTwo')
       .send(mockRequestBody)
       .then((res) => {
         expect(res.statusCode === HttpStatus.OK);
@@ -29,9 +29,9 @@ describe('CalculatorController (e2e)', () => {
       });
   });
 
-  it('(POST) /calculate/subtract', () => {
+  it('(POST) /calculate/subtractTwo', () => {
     return request(app.getHttpServer())
-      .post('/calculate/subtract')
+      .post('/calculate/subtractTwo')
       .send(mockRequestBody)
       .then((res) => {
         expect(res.statusCode === HttpStatus.OK);
