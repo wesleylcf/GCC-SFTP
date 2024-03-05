@@ -10,7 +10,6 @@ interface FormState {
 }
 
 const defaultFormState: FormState = { operand1: 0, operand2: 0 };
-type Operat = keyof typeof ApiService.calculator;
 
 export default function App() {
   const [result, setResult] = useState(0);
@@ -30,7 +29,7 @@ export default function App() {
   };
 
   const executeCalculation = async (
-    calculation: (a: number, b: number) => Promise<any>
+    calculation: (a: number, b: number) => Promise<number>
   ) => {
     setIsLoading(true);
     const { operand1: _operand1, operand2: _operand2 } = form.getFieldsValue();
